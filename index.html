@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--  Meta  -->
+    <meta charset="UTF-8" />
+    <title>My New Pen!</title>
+
+    <!--  Styles  -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="styles/index.processed.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <style>
+    .btn {
+      background-color: rgb(40, 167, 69);
+    }
+    #body {
+      background-color: rgb(40, 167, 69);
+    }
+    body,
+    .btn,
+    .fa,
+    #qoute,
+    #author {
+      transition: 2000ms;
+    }
+  </style>
+
+  <body id="body" class="body">
+    <div class="container-fluid" id="container">
+      <div class="container p-5">
+        <div class="col-lg-7 col-md-7 col-sm-12 mx-auto">
+          <div class="card">
+            <div class="card-body shadow">
+              <div class="row">
+                <div class="col-12 p-3 mb-4 text-danger">
+                  <p id="qoute" class="qoute">
+                    The battles that count aren’t the ones for gold medals. The
+                    struggles within yourself–the invisible battles inside all
+                    of us–that’s where it’s at.
+                  </p>
+                  <p class="text-right author">
+                    _ <span id="author">Author</span>
+                  </p>
+                </div>
+                <div class="col-5 text-success">
+                  <i class="fa fa-facebook-square mr-3 fa-2x"></i>
+                  <i class="fa fa-youtube-square fa-2x"></i>
+                </div>
+                <div class="col-5">
+                  <button class="btn btn-sm btn-block text-light" id="next">
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let colors = [
+        "orange",
+        "gold",
+        "blue",
+        "red",
+        "rgb(40, 167, 69)",
+        "brown"
+      ];
+      let selector = element => document.querySelector(element);
+      let targets = [
+        "quote",
+        "body",
+        "fa",
+        "fa-youtube-square",
+        "btn",
+        "author"
+      ];
+      selector("#next").addEventListener("click", function() {
+        console.log("hi");
+        let numColor = Math.floor(Math.random() * colors.length);
+
+        selector("#qoute").style.color = colors[numColor];
+        selector("#body").style.backgroundColor = colors[numColor];
+        selector(".fa").style.color = colors[numColor];
+        selector(".fa-youtube-square").style.color = colors[numColor];
+        selector(".btn").style.backgroundColor = colors[numColor];
+        selector("#author").style.color = colors[numColor];
+
+        fetch("http://quotes.stormconsultancy.co.uk/popular.json")
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            let num = Math.floor(Math.random() * 50);
+            console.log(data);
+            selector("#qoute").textContent = data[num].quote;
+
+            selector("#author").textContent = data[num].author;
+          });
+      });
+    </script>
+  </body>
+</html>
