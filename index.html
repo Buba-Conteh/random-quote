@@ -94,14 +94,14 @@
         selector(".btn").style.backgroundColor = colors[numColor];
         selector("#author").style.color = colors[numColor];
 
-        fetch("http://quotes.stormconsultancy.co.uk/popular.json")
+        fetch("https://programming-quotes-api.herokuapp.com/quotes")
           .then(response => {
             return response.json();
           })
           .then(data => {
             let num = Math.floor(Math.random() * 50);
             console.log(data);
-            selector("#qoute").textContent = data[num].quote;
+            selector("#qoute").textContent = data[num].en;
 
             selector("#author").textContent = data[num].author;
           });
